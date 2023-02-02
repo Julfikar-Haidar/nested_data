@@ -29,7 +29,7 @@ const insertDataInIndexedDb = () => {
     console.log(event);
     const db = request.result;
 
-    if (!db.objectStoreNames.contains("userData")) {
+    if (!db.objectStoreNames.contains("userData") && !db.objectStoreNames.contains("sectorsData")) {
       const objectStore = db.createObjectStore("userData", { keyPath: "id" });
       const objectStore1 = db.createObjectStore("sectorsData", {
         keyPath: "id",
@@ -42,8 +42,8 @@ const insertDataInIndexedDb = () => {
 
     const db = request.result;
 
-    var tx = db.transaction("user", "readwrite");
-    var userData = tx.objectStore("user");
+    var tx = db.transaction("sectorsData", "readwrite");
+    var userData = tx.objectStore("sectorsData");
 
     USER_DATA.forEach((item) => userData.add(item));
 
@@ -136,7 +136,7 @@ const Basis = () => {
               setTextInput("");
               setOccupation("");
               setIsChecked(false);
-              setAddUser(false);
+              setAddUser(true);
               getAllData();
               event.preventDefault();
             };
